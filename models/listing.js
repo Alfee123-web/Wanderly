@@ -10,13 +10,9 @@ const listingSchema = new Schema({
     },
     description: String,
     image: {
-        filename: String,
-        url: {
-            type: String,
-            default: "https://unsplash.com/photos/modern-a-frame-living-room-with-forest-view-oIx5RmkC9Ow",
-            set: (v) => v === "" ? "https://unsplash.com/photos/modern-a-frame-living-room-with-forest-view-oIx5RmkC9Ow" : v,
-        },
-    },
+    filename: String,
+   url:String,
+},
     price: Number,
     location: String,
     country: String,
@@ -26,7 +22,23 @@ const listingSchema = new Schema({
             ref: "Review"
         },
     ],
+    owner:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+    },
+    geometry:{
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ['Point'], // 'location.type' must be 'Point'
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  }
 });
+
 listingSchema.post("findOneAndDelete", async (listing) => {
     if (listing) {
         await Review.deleteMany({ _id: { $in: listing.reviews } });

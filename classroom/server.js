@@ -13,25 +13,36 @@ app.set("views", path.join(__dirname, "views"));
 
 
 const sessionOptions = {
-    secret : "mysecretstring",
-    resave : false,
-    saveUninitialized:true,
+  secret: "mysecretstring",
+  resave: false,
+  saveUninitialized: true,
 };
 
 app.use(session(sessionOptions));
 app.use(flash());
 
-
-app.get("/register" , (req,res)=>{
-  let {name = "anonymous" } = req.query;
-  req.session.name = name;
-  req.flash("success" , "user registered successfully");
-  res.redirect("/hello");
- 
+app.use((req, res, next) => {
+  res.locals.messages = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
 });
-app.get("/hello" , (req,res)=>{
-  res.render("page.ejs" , {name: req.session.name , msg:req.flash("success")});
- 
+
+app.get("/register", (req, res) => {
+  let { name = "anonymous" } = req.query;
+  req.session.name = name;
+
+  if (name === "anonymous") {
+    req.flash("error", "user not registered");
+  } else {
+    req.flash("success", "user registered successfully");
+  }
+  res.redirect("/hello");
+
+});
+
+app.get("/hello", (req, res) => {
+  res.render("page.ejs", { name: req.session.name });
+
 });
 
 // app.get("/reqcount" , (req,res)=>{
@@ -42,7 +53,7 @@ app.get("/hello" , (req,res)=>{
 //     }
 //     res.send(`you sent a request ${req.session.count} times`);
 // });
-   
+
 
 // app.use(cookieParser("secretcode"));
 
@@ -68,7 +79,7 @@ app.get("/hello" , (req,res)=>{
 // });
 // app.get("/greet", (req, res) => {
 //     let {name = "anonymous"} = req.cookies;
-        
+
 //     res.send(`hii ${name}`);
 // });
 
@@ -77,5 +88,5 @@ app.get("/hello" , (req,res)=>{
 
 
 app.listen(3000, () => {
-    console.log("server is listening to port 3000");
+  console.log("server is listening to port 3000");
 })
