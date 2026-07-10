@@ -1,27 +1,260 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<style>
+    /* navbar base */
+    .navbar {
+        min-height: 5rem;
+        /* Changed from height to min-height */
+        height: auto;
+        background-color: var(--primary-color) !important;
+    }
+
+    .navbar-collapse {
+        background-color: var(--primary-color);
+        z-index: 1050;
+    }
+
+    .navbar-toggler {
+        background-color: white !important;
+        border: none !important;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23457B9D' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none !important;
+    }
+
+    .fa-compass {
+        color: #F1FAEE;
+        font-size: 2rem;
+    }
+
+    .nav-link {
+        color: var(--text-light) !important;
+    }
+
+    .nav-link:hover {
+        color: var(--accent-color) !important;
+    }
+
+    /* Search Box Styling */
+    .search-btn {
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 25px;
+        padding: 0.5rem 1.5rem;
+        border: none;
+    }
+
+    .search-btn:hover {
+        background-color: #35617d;
+        color: white;
+    }
+
+    .search-inp {
+        border-radius: 25px;
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+    }
+
+    .search-inp:focus {
+        box-shadow: 0 0 0 2px var(--accent-color);
+        border-color: var(--accent-color);
+        outline: none;
+    }
+
+    /* Auth Buttons */
+    .logout-btn,
+    .login-btn,
+    .signup-btn {
+        border: 1px solid white !important;
+        border-radius: 20px;
+        padding: 6px 16px !important;
+        transition: all 0.2s ease;
+        display: inline-block;
+        width: fit-content;
+    }
+
+    .logout-btn:hover,
+    .login-btn:hover,
+    .signup-btn:hover {
+        background-color: white;
+        color: var(--primary-color) !important;
+    }
+
+    /* --- Mobile View Adjustments --- */
+    @media (max-width: 767px) {
+        .navbar-collapse {
+            padding: 1rem 0 1.5rem 0;
+        }
+
+        /* Stack sections nicely */
+        .navbar-nav {
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .navbar-nav.ms-auto {
+            margin-left: 0 !important;
+        }
+
+        .search-form-wrap {
+            flex-wrap: nowrap;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .search-inp {
+            flex-grow: 1;
+            width: auto;
+        }
+
+        .nav-link {
+            padding: 0.5rem 0;
+        }
+
+        .logout-btn,
+        .login-btn,
+        .signup-btn {
+            margin-top: 0.75rem;
+            margin-left: 0 !important;
+            margin-right: 0.5rem;
+        }
+    }
+
+    /* Vertical alignment for desktop items */
+    @media (min-width: 768px) {
+        .navbar-collapse {
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .format-search-container {
+            flex: 1;
+            max-width: 600px;
+
+            .format-auth-container {
+                display: flex;
+                align-items: center !important;
+            }
+
+
+            .format-auth-container .nav-link {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+
+        .text-nowrap {
+            white-space: nowrap !important;
+        }
+
+
+        .search-btn i {
+            margin-right: 0.5rem;
+        }
+    }
+
+    .fa-compass {
+        color: var(--bg-color);
+        font-size: 1.7rem;
+    }
+
+    .nav-link {
+        color: var(--text-light) !important;
+    }
+
+    .nav-link:hover {
+        color: var(--accent-color) !important;
+    }
+
+    .search-btn {
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 25px;
+        padding: 0 1rem 0 1rem;
+        border: none;
+    }
+
+    .search-btn:hover {
+        background-color: #35617d;
+        color: white;
+    }
+
+    .search-btn i {
+        display: inline;
+        margin-right: 0.5rem;
+    }
+
+    .search-inp {
+        border-radius: 25px;
+        padding: 0.5rem 3rem 0.5rem 3rem;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+    }
+
+    .search-inp:focus {
+        box-shadow: 0 0 0 2px var(--accent-color);
+        border-color: var(--accent-color);
+        outline: none;
+    }
+
+    .logout-btn,
+    .login-btn,
+    .signup-btn {
+        border: 1px solid white !important;
+        border-radius: 20px;
+        padding: 4px 14px !important;
+        transition: all 0.2s ease;
+        margin-left: 0.5rem;
+    }
+
+    .logout-btn:hover,
+    .login-btn:hover,
+    .signup-btn:hover {
+        background-color: white;
+        color: var(--primary-color) !important;
+    }
+</style>
+<nav class="navbar navbar-expand-md border-bottom sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/"><i class="fa-solid fa-compass"></i></a>
+        <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/listings">All Listings</a>
-                <a class="nav-link" href="/listings/new">Add new Listing</a>
+
+            <div class="navbar-nav me-auto">
+                <a class="nav-link explore-link" href="/listings">Explore</a>
             </div>
-            <div class="navbar-nav ms-auto">
-                <% if(!currUser) { %>
-                    <a class="nav-link" href="/signup">Sign up</a>
-                    <a class="nav-link" href="/login">Log in</a>
-                    <%}%>
-                        <% if(currUser) { %>
-                            <a class="nav-link" href="/logout">Log out</a>
+
+
+            <div class="navbar-nav mx-md-auto my-2 my-md-0 d-flex justify-content-center format-search-container">
+                <form class="d-flex search-form-wrap" role="search">
+                    <input class="form-control search-inp" type="search" placeholder="Search destinations" />
+                    <button class="btn search-btn d-flex align-items-center" type="submit">
+                        <i class="fa-solid fa-magnifying-glass me-2"></i>Search
+                    </button>
+                </form>
+            </div>
+
+
+            <div class="navbar-nav ms-auto align-items-center flex-row flex-md-row format-auth-container">
+                <a class="nav-link text-nowrap me-3" href="/listings/new">Airbnb your home</a>
+
+                <% if(typeof currUser==="undefined" || !currUser) { %>
+                    <a class="nav-link signup-btn text-nowrap" href="/signup"><b>Sign up</b></a>
+                    <a class="nav-link login-btn text-nowrap" href="/login"><b>Log in</b></a>
+                    <% } %>
+
+                        <% if(typeof currUser !=="undefined" && currUser) { %>
+                            <a class="nav-link logout-btn text-nowrap" href="/logout"><b>Log out</b></a>
                             <% } %>
-
-
             </div>
-
         </div>
     </div>
 </nav>
