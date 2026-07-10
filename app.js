@@ -85,9 +85,11 @@ passport.serializeUser(User.serializeUser());//store in session
 passport.deserializeUser(User.deserializeUser());//unstore in session
 
 app.use((req, res, next) => {
+     res.locals.currUser = req.user;
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currUser = req.user;
+   
+    res.locals.MAP_TOKEN = process.env.MAP_TOKEN;
     next();
 });
 

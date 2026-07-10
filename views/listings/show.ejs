@@ -106,11 +106,11 @@
                 </div>
                 <div class="col-6 offset-3 mb-3">
                     <h3 class="listing-heading">Where you'll be</h3>
-                    <div id="map"></div>
+                    <div id="map" style="height: 400px; width: 100%; border: 1px solid #ccc; border-radius: 12px; display: block;"></div>
                 </div>
     </div>
 
     <script>
-    const mapToken = "<%= MAPBOX_SECRET_TOKEN %>";
+    const mapToken = "<%= MAP_TOKEN %>";
 </script>
 <script src="/js/map.js"></script>
