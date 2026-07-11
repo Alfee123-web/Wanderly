@@ -1,6 +1,4 @@
-
 const mapEl = document.getElementById("map");
-
 
 const mapToken = mapEl.dataset.token;
 const coordinates = JSON.parse(mapEl.dataset.coordinates);
@@ -8,13 +6,16 @@ const listingTitle = mapEl.dataset.title;
 
 mapboxgl.accessToken = mapToken;
 
-
 if (mapToken && Array.isArray(coordinates) && coordinates.length === 2) {
     const map = new mapboxgl.Map({
         container: 'map',
         style: "mapbox://styles/mapbox/streets-v12",
         center: coordinates,
         zoom: 12
+    });
+
+    map.on('load', () => {
+        map.resize();
     });
 
     new mapboxgl.Marker({ color: "red" })
@@ -28,4 +29,3 @@ if (mapToken && Array.isArray(coordinates) && coordinates.length === 2) {
 } else {
     mapEl.innerHTML = "<p class='text-muted p-3'>Map location not available for this listing.</p>";
 }
-

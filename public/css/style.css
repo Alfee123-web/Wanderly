@@ -15,10 +15,12 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background-color: var(--bg-color);
+     overflow-x: hidden;
 }
 
 .container {
     flex: 1;
+       padding-bottom: 3rem;
 }
 
 /* navbar */
@@ -234,11 +236,14 @@ body {
 
 
 /* map */
+
 #map {
     height: 400px;
     width: 100%;
+    max-width: 100%;
     border-radius: 8px;
 }
+
 
 /* Filters Layout & Style Improvements */
 #filters {

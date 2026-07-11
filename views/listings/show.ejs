@@ -81,16 +81,17 @@
         <% } %>
     </div>
 
-   <div class="col-6 offset-3 mb-3">
-    <h3 class="listing-heading">Where you'll be</h3>
-  
-    <div id="map" 
-         data-token="<%= MAP_TOKEN %>"
-         data-coordinates="<%- JSON.stringify(listing.geometry.coordinates || []) %>"
-         data-title="<%= listing.title %>"
-         style="height: 400px; width: 100%; border: 1px solid #ccc; border-radius: 12px; display: block;">
+   
+<div class="col-6 offset-3 mb-5">
+        <h3 class="listing-heading">Where you'll be</h3>
+        <div id="map" 
+             data-token="<%= MAP_TOKEN %>"
+             data-coordinates="<%- JSON.stringify(listing.geometry.coordinates || []) %>"
+             data-title="<%= listing.title %>"
+             style="height: 400px; width: 100%; border: 1px solid #ccc; border-radius: 12px; display: block;">
+        </div>
     </div>
 </div>
 
-
 <script src="/js/map.js"></script>
+
